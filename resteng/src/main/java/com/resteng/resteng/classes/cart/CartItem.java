@@ -1,4 +1,6 @@
-package com.resteng.resteng.classes;
+package com.resteng.resteng.classes.cart;
+
+import com.resteng.resteng.classes.products.Product;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

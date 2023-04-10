@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-RestengApplication<resteng>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.resteng.resteng.RestengApplication",
+            "projectName": "resteng",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

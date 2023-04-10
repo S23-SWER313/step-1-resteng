@@ -1,4 +1,4 @@
-package com.resteng.resteng.classes;
+package com.resteng.resteng.classes.products;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

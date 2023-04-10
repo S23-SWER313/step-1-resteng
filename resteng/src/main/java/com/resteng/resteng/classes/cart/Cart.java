@@ -1,4 +1,4 @@
-package com.resteng.resteng.classes;
+package com.resteng.resteng.classes.cart;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -8,17 +8,17 @@ import jakarta.persistence.Id;
 public class Cart {
     @Id
     @GeneratedValue
-    long cart_id;
+    Long cart_id;
 
-    public long getId() {
+    public Long getId() {
         return cart_id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.cart_id = id;
     }
 
-    public Cart(long id) {
+    public Cart(Long id) {
         this.cart_id = id;
     }
 
