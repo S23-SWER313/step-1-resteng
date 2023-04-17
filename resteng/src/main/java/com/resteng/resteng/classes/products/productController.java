@@ -3,9 +3,10 @@ package com.resteng.resteng.classes.products;
 import java.util.List;
 
 import com.resteng.resteng.classes.categorie.Categorie;
-import com.resteng.resteng.classes.products.Product;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,63 +18,91 @@ public class productController {
 
     // GET /products
     @GetMapping("")
-    public List<Product> getAllProducts() {
-        return productService.getAllProducts();
+    public ResponseEntity<List<Product>> getAllProducts() {
+        List<Product> products = productService.getAllProducts();
+        return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
     // GET /products/{productId}
     @GetMapping("/{productId}")
-    public Product getProductById(@PathVariable long productId) {
-        return productService.getProductById(productId);
+    public ResponseEntity<Product> getProductById(@PathVariable long productId) {
+        Product product = productService.getProductById(productId);
+        if (product != null) {
+            return new ResponseEntity<Product>(product, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     // PUT /products/{productId}
     @PutMapping("/{productId}")
-    public void updateProduct(@PathVariable long productId, @RequestBody Product product) {
-        productService.updateProduct(productId, product);
+    public ResponseEntity<Product> updateProduct(@PathVariable long productId, @RequestBody Product product) {
+        return new ResponseEntity<>(productService.updateProduct(productId, product), HttpStatus.valueOf(204));
     }
 
     // POST /products
     @PostMapping("")
-    public Product addProduct(@RequestBody Product product) {
-        return productService.addProduct(product);
+    public ResponseEntity<Product> addProduct(@RequestBody Product product) {
+        return new ResponseEntity<>(productService.addProduct(product), HttpStatus.CREATED);
     }
 
     // DELETE /products/{productId}
     @DeleteMapping("/{productId}")
-    public void deleteProduct(@PathVariable long productId) {
+    public ResponseEntity<HttpStatus> deleteProduct(@PathVariable long productId) {
         productService.deleteProduct(productId);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     // GET /products/{product_id}/categories
     @GetMapping("/{productId}/categories")
-    public List<Categorie> getProductCategories(@PathVariable long productId) {
-        return productService.getProductCategories(productId);
+    public ResponseEntity<Iterable<Categorie>> getProductCategories(@PathVariable long productId) {
+        List<Categorie> categories = productService.getProductCategories(productId);
+        if (categories != null) {
+            return new ResponseEntity<>(categories, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     // GET /products/{product_id}/categories/{categorie_name}
     @GetMapping("/{productId}/categories/{categorieName}")
-    public Categorie getProductCategoryByName(@PathVariable long productId, @PathVariable String categorieName) {
-        return productService.getProductCategoryByName(productId, categorieName);
+    public ResponseEntity<Categorie> getProductCategoryByName(@PathVariable long productId,
+            @PathVariable String categorieName) {
+        if (productService.getProductCategoryByName(productId, categorieName) != null) {
+            return new ResponseEntity<>(productService.getProductCategoryByName(productId, categorieName),
+                    HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     // POST /products/{product_id}/categories
     @PostMapping("/{productId}/categories")
-    public void addProductCategory(@PathVariable long productId, @RequestBody Categorie categorie) {
-        productService.addProductCategory(productId, categorie);
+    public ResponseEntity<Categorie> addProductCategory(@PathVariable long productId,
+            @RequestBody Categorie categorie) {
+        if (productService.addProductCategory(productId, categorie) != null) {
+            return new ResponseEntity<>(productService.addProductCategory(productId, categorie), HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     // PUT /products/{product_id}/categories/{categorie_name}
     @PutMapping("/{productId}/categories/{categorieName}")
-    public void updateProductCategory(@PathVariable long productId, @PathVariable String categorieName,
+    public ResponseEntity<Categorie> updateProductCategory(@PathVariable long productId, @PathVariable String categorieName,
                                       @RequestBody Categorie categorie) {
-        productService.updateProductCategory(productId, categorieName, categorie);
+        Categorie categorie2 =   productService.updateProductCategory(productId, categorieName, categorie);
+        if(categorie2 != null) {
+            return new ResponseEntity<>(categorie2, HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     // DELETE /products/{product_id}/categories/{categorie_name}
     @DeleteMapping("/{productId}/categories/{categorieName}")
-    public void deleteProductCategory(@PathVariable long productId, @PathVariable String categorieName) {
+    public ResponseEntity<HttpStatus> deleteProductCategory(@PathVariable long productId, @PathVariable String categorieName) {
         productService.deleteProductCategory(productId, categorieName);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
-

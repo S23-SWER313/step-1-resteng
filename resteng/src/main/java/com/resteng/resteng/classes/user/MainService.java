@@ -14,10 +14,6 @@ import com.resteng.resteng.classes.cart.Cart;
 import com.resteng.resteng.classes.cart.CartRepo;
 import com.resteng.resteng.classes.cartItem.CartItem;
 import com.resteng.resteng.classes.cartItem.CatrItemRepo;
-import com.resteng.resteng.classes.cartProduct.CartProductRepo;
-import com.resteng.resteng.classes.cartProduct.Cat_prod;
-import com.resteng.resteng.classes.categorie.Categorie;
-import com.resteng.resteng.classes.categorie.CategorieRepo;
 import com.resteng.resteng.classes.products.Product;
 import com.resteng.resteng.classes.products.ProductRepo;
 
@@ -31,20 +27,16 @@ public class MainService {
     private BankRepo bankRepo;
     private CartRepo cartRepo;
     private CatrItemRepo catrItemRepo;
-    private CartProductRepo cartProductRepo;
-    private CategorieRepo categorieRepo;
     private ProductRepo productRepo;
 
+
     public MainService(UserRepository userRepository, AccountRep accountRep, BankRepo bankRepo, CartRepo cartRepo,
-            CatrItemRepo catrItemRepo, CartProductRepo cartProductRepo, CategorieRepo categorieRepo,
-            ProductRepo productRepo) {
+            CatrItemRepo catrItemRepo, ProductRepo productRepo) {
         this.userRepository = userRepository;
         this.accountRep = accountRep;
         this.bankRepo = bankRepo;
         this.cartRepo = cartRepo;
         this.catrItemRepo = catrItemRepo;
-        this.cartProductRepo = cartProductRepo;
-        this.categorieRepo = categorieRepo;
         this.productRepo = productRepo;
     }
 

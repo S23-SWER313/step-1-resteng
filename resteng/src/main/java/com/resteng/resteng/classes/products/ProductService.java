@@ -1,8 +1,6 @@
 package com.resteng.resteng.classes.products;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -10,6 +8,8 @@ import org.springframework.stereotype.Service;
 import com.resteng.resteng.classes.cartProduct.CartProductRepo;
 import com.resteng.resteng.classes.cartProduct.Cat_prod;
 import com.resteng.resteng.classes.categorie.Categorie;
+
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class ProductService {
@@ -33,7 +33,7 @@ public class ProductService {
         return productRepo.save(product);
     }
 
-    public void updateProduct(long id, Product updatedProduct) {
+    public Product updateProduct(long id, Product updatedProduct) {
         Product product = getProductById(id);
         if (product != null) {
             product.setProduct_title(updatedProduct.getProduct_title());
@@ -42,7 +42,10 @@ public class ProductService {
             product.setProduct_img(updatedProduct.getProduct_img());
             product.setProduct_quantity(updatedProduct.getProduct_quantity());
             product.setProduct_area(updatedProduct.getProduct_area());
-            productRepo.save(product);
+            return productRepo.save(product);
+        } else {
+            updatedProduct.setProduct_id(id);
+            return productRepo.save(updatedProduct);
         }
     }
 
@@ -55,7 +58,11 @@ public class ProductService {
         List<Categorie> categories = catProds.stream()
                 .filter(e -> e.getProduct().getProduct_id() == productId)
                 .map(e -> e.getCategorie()).collect(Collectors.toList());
-        return categories;
+
+        if (!categories.isEmpty())
+            return categories;
+        else
+            return null;
     }
 
     public Categorie getProductCategoryByName(long productId, String categorieName) {
@@ -64,20 +71,26 @@ public class ProductService {
                 .filter(e -> e.getProduct().getProduct_id() == productId
                         && e.getCategorie().getCategorie_title() == categorieName)
                 .map(e -> e.getCategorie()).collect(Collectors.toList());
-        return categories.get(0);
+        if (!categories.isEmpty())
+            return categories.get(0);
+        else
+            return null;
     }
 
-    public void addProductCategory(long productId, Categorie categorie) {
+    public Categorie addProductCategory(long productId, Categorie categorie) {
         Product product = productRepo.findById(productId).orElse(null);
         if (product != null) {
             Cat_prod catProd = new Cat_prod();
             catProd.setProduct(product);
             catProd.setCategorie(categorie);
             cartProductRepo.save(catProd);
+            return categorie;
+        }else{
+            return null;
         }
     }
 
-    public void updateProductCategory(long productId, String categorieName, Categorie categorie) {
+    public Categorie updateProductCategory(long productId, String categorieName, Categorie categorie) {
         List<Cat_prod> catProds = cartProductRepo.findAll().stream()
                 .filter(e -> e.getCategorie().getCategorie_title() == categorieName
                         && e.getProduct().getProduct_id() == productId)
@@ -86,6 +99,9 @@ public class ProductService {
             Cat_prod catProd = catProds.get(0);
             catProd.setCategorie(categorie);
             cartProductRepo.save(catProd);
+            return categorie;
+        }else{
+            return null;
         }
     }
 
