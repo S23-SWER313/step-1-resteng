@@ -12,14 +12,15 @@ public class Account {
     private long account_id;
     private String account_email; 
     private String account_password;
+    private String account_role;
 
     public Account(){
     }
 
-    public Account(String account_email, String account_password){
-        this.account_email=account_email;
-        this.account_password=account_password;
-
+    public Account(String account_email, String account_password, String account_role) {
+        this.account_email = account_email;
+        this.account_password = account_password;
+        this.account_role = account_role;
     }
 
     public long getAccount_id() {
@@ -44,5 +45,13 @@ public class Account {
 
     public void setAccount_password(String account_password) {
         this.account_password = account_password;
+    }
+
+    public String getAccount_role() {
+        return account_role;
+    }
+
+    public void setAccount_role(String account_role) {
+        this.account_role = account_role;
     }
 }

@@ -20,6 +20,16 @@ public class CartItem {
     @ManyToOne
     Cart cart;
 
+    
+
+    public CartItem() {
+    }
+
+    public CartItem(Product product, Cart cart) {
+        this.product = product;
+        this.cart = cart;
+    }
+
     public long getCart_item_id() {
         return cart_item_id;
     }
