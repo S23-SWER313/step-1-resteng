@@ -17,6 +17,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.resteng.resteng.classes.account.Account;
 import com.resteng.resteng.classes.bankAccount.BankAccount;
+import com.resteng.resteng.classes.cartItem.CartItem;
+import com.resteng.resteng.classes.cartProduct.CartProductRepo;
 import com.resteng.resteng.classes.products.Product;
 
 @RestController
@@ -64,58 +66,105 @@ public class UserControler {
     }
 
     @GetMapping("/{id}/account")
-    Account getUserAccountById(@PathVariable Long id) {
-        return service.getAccountOfUserById(id);
+    ResponseEntity<Object> getUserAccountById(@PathVariable Long id) {
+        Account account = service.getAccountOfUserById(id);
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                .buildAndExpand(account.getAccount_id())
+                .toUri();
+        return ResponseEntity.created(location).build();
     }
 
     @PostMapping("/{id}/account")
-    Account createUserAccountById(@PathVariable Long id, @RequestBody Account account) {
-        return service.createsAccountOfUserById(id, account);
+    ResponseEntity<Object> createUserAccountById(@PathVariable Long id, @RequestBody Account account) {
+        Account account2 = service.getAccountOfUserById(id);
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                .buildAndExpand(account2.getAccount_id())
+                .toUri();
+        return ResponseEntity.created(location).build();
+
     }
 
     @PutMapping("/{id}/account")
-    Account updateUserAccountById(@PathVariable Long id, @RequestBody Account account) {
-        return service.updateAccountOfUserById(id, account);
+    ResponseEntity<Object> updateUserAccountById(@PathVariable Long id, @RequestBody Account account) {
+        Account account3 = service.getAccountOfUserById(id);
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                .buildAndExpand(account3.getAccount_id())
+                .toUri();
+        return ResponseEntity.created(location).build();
+
     }
 
     @GetMapping("/{id}/bankAccount")
-    BankAccount getAccountBankOfUserById(@PathVariable Long id) {
-        return service.getAccountBankOfUserById(id);
+    ResponseEntity<Object> getAccountBankOfUserById(@PathVariable Long id) {
+        BankAccount bankaccount = service.getAccountBankOfUserById(id);
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                .buildAndExpand(bankaccount.getBank_account_id())
+                .toUri();
+        return ResponseEntity.created(location).build();
+
     }
 
     @PostMapping("/{id}/bankAccount")
-    BankAccount createUserBankAccountById(@PathVariable Long id, @RequestBody BankAccount bankAccount) {
-        return service.createsBankAccountOfUserById(id, bankAccount);
+    ResponseEntity<Object> createUserBankAccountById(@PathVariable Long id, @RequestBody BankAccount bankAccount) {
+        BankAccount bankaccount2 = service.getAccountBankOfUserById(id);
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                .buildAndExpand(bankaccount2.getBank_account_id())
+                .toUri();
+        return ResponseEntity.created(location).build();
     }
 
     @PutMapping("/{id}/bankAccount")
-    Account updateBankAccountOfUserById(@PathVariable Long id, @RequestBody BankAccount bankAccount) {
-        return service.updateBankAccountOfUserById(id, bankAccount);
+    ResponseEntity<Object> updateBankAccountOfUserById(@PathVariable Long id, @RequestBody BankAccount bankAccount) {
+        BankAccount bankaccount3 = service.getAccountBankOfUserById(id);
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                .buildAndExpand(bankaccount3.getBank_account_id())
+                .toUri();
+        return ResponseEntity.created(location).build();
     }
 
     @DeleteMapping("/{id}/bankAccount")
-    void deleteBankAccountOfUserById(@PathVariable Long id) {
-        service.deleteUserAccountBank(id);
+    ResponseEntity<Object> deleteBankAccountOfUserById(@PathVariable Long id) {
+        BankAccount bankaccount4 = service.getAccountBankOfUserById(id);
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                .buildAndExpand(bankaccount4.getBank_account_id())
+                .toUri();
+        return ResponseEntity.created(location).build();
     }
 
     @GetMapping("/{id}/cart/products")
-    List<Product> getUserCartProducts(@PathVariable Long id) {
-        return service.getUserCartProducts(id);
+    ResponseEntity<Object> getUserCartProducts(@PathVariable Long id) {
+        CartProductRepo cartProductRepo = service.getUserCartProduct(id);
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                .buildAndExpand(cartProductRepo.getReferenceById(id))
+                .toUri();
+        return ResponseEntity.created(location).build();
     }
 
     @PostMapping("/{id}/cart/products/{productId}")
-    Product addUserCartProducts(@PathVariable Long id, @RequestBody Long productId) {
-        return service.addUserCartProduct(id, productId);
+    ResponseEntity<Object> addUserCartProducts(@PathVariable Long id, @RequestBody Long productId) {
+        CartProductRepo cartProductRepo1 = service.getUserCartProduct(id);
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                .buildAndExpand(cartProductRepo1.getReferenceById(id))
+                .toUri();
+        return ResponseEntity.created(location).build();
     }
 
     @DeleteMapping("/{id}/cart/products/{productId}")
-    void deleteUserCartProduct(@PathVariable Long id, @PathVariable Long productId) {
-        service.deleteUserCartProduct(id, productId);
+    ResponseEntity<Object> deleteUserCartProduct(@PathVariable Long id, @PathVariable Long productId) {
+        CartProductRepo cartProductRepo2 = service.getUserCartProduct(id);
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                .buildAndExpand(cartProductRepo2.getReferenceById(id))
+                .toUri();
+        return ResponseEntity.created(location).build();
     }
 
     @GetMapping("/{id}/cart/products/{productId}")
-    Product getUserCartProduct(@PathVariable Long id, @RequestBody Long productId) {
-        return service.getUserCartProduct(id, productId);
+    ResponseEntity<Object> getUserCartProduct(@PathVariable Long id, @RequestBody Long productId) {
+        CartProductRepo cartProductRepo3 = service.getUserCartProduct(id);
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                .buildAndExpand(cartProductRepo3.getReferenceById(id))
+                .toUri();
+        return ResponseEntity.created(location).build();
     }
 
 }

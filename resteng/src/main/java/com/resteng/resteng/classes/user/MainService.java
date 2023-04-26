@@ -14,6 +14,7 @@ import com.resteng.resteng.classes.cart.Cart;
 import com.resteng.resteng.classes.cart.CartRepo;
 import com.resteng.resteng.classes.cartItem.CartItem;
 import com.resteng.resteng.classes.cartItem.CatrItemRepo;
+import com.resteng.resteng.classes.cartProduct.CartProductRepo;
 import com.resteng.resteng.classes.products.Product;
 import com.resteng.resteng.classes.products.ProductRepo;
 
@@ -293,6 +294,10 @@ public class MainService {
         } else {
             throw new EntityNotFoundException("User with id " + id + " not found");
         }
+    }
+
+    public CartProductRepo getUserCartProduct(Long id) {
+        return null;
     }
 
 }
