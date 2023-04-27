@@ -24,8 +24,9 @@ public class UserControler {
     MainService service;
 
     @GetMapping(value = { "", "/" })
-    public List<User> getAll() {
-        return service.getAllUser();
+    public ResponseEntity<Iterable<User>> getAllUsers() {
+        Iterable<User> users = service.getAllUser();
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
     @PostMapping(value = { "", "/" })
