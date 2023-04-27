@@ -1,5 +1,7 @@
 package com.resteng.resteng.classes.categorie;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,10 +31,11 @@ public class CategorieController {
     }
 
     @PostMapping("")
-    public ResponseEntity<Categorie> addCategory(@RequestBody Categorie categorie) {
-        Categorie savedCategorie = categorieService.addCategory(categorie);
-        return new ResponseEntity<>(savedCategorie, HttpStatus.CREATED);
-    }
+public ResponseEntity<Categorie> addCategory(@RequestBody @Valid Categorie categorie) {
+    Categorie savedCategorie = categorieService.addCategory(categorie);
+    return new ResponseEntity<>(savedCategorie, HttpStatus.CREATED);
+}
+
 
     @PutMapping("/{categorieId}")
     public ResponseEntity<Categorie> updateCategory(@PathVariable String categorieId, @RequestBody Categorie updatedCategorie) {
