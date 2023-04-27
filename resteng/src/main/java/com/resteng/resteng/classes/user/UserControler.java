@@ -29,8 +29,11 @@ public class UserControler {
     }
 
     @PostMapping(value = { "", "/" })
-    public User CreateNewUser(@RequestBody User user) {
-        return service.newUser(user);
+    public ResponseEntity<User> CreateNewUser(@RequestBody User user) {
+        User user2 = service.newUser(user);
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(user2.getUser_id())
+                .toUri();
+        return ResponseEntity.created(location).build();
     }
 
     @PutMapping("/{id}")
