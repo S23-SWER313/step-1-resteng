@@ -56,9 +56,13 @@ public class UserControler {
         return service.getAccountOfUserById(id);
     }
 
-    @PostMapping("/{id}/account")
-    Account createUserAccountById(@PathVariable Long id, @RequestBody Account account) {
-        return service.createsAccountOfUserById(id, account);
+    @PostMapping(value = "/{id}/account")
+    public ResponseEntity<Account> createNewUserAccount(@PathVariable Long id, @RequestBody Account account) {
+        Account newAccount = service.createsAccountOfUserById(id, account);
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id} ")
+                .buildAndExpand(newAccount.getAccount_id())
+                .toUri();
+        return ResponseEntity.created(location).build();
     }
 
     @PutMapping("/{id}/account")
@@ -71,9 +75,15 @@ public class UserControler {
         return service.getAccountBankOfUserById(id);
     }
 
-    @PostMapping("/{id}/bankAccount")
-    BankAccount createUserBankAccountById(@PathVariable Long id, @RequestBody BankAccount bankAccount) {
-        return service.createsBankAccountOfUserById(id, bankAccount);
+    @PostMapping(value = "/{id}/bankAccounts")
+    public ResponseEntity<BankAccount> createUserBankAccountById(@PathVariable Long id,
+            @RequestBody BankAccount bankAccount) {
+        BankAccount newBankAccount = service.createsBankAccountOfUserById(id, bankAccount);
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(newBankAccount.getBank_account_id())
+                .toUri();
+        return ResponseEntity.created(location).build();
     }
 
     @PutMapping("/{id}/bankAccount")
@@ -91,9 +101,14 @@ public class UserControler {
         return service.getUserCartProducts(id);
     }
 
-    @PostMapping("/{id}/cart/products/{productId}")
-    Product addUserCartProducts(@PathVariable Long id, @RequestBody Long productId) {
-        return service.addUserCartProduct(id, productId);
+    @PostMapping(value = "/{id}/cart/products/{productId}")
+    public ResponseEntity<Product> addUserCartProducts(@PathVariable Long id, @RequestBody Long productId) {
+        Product addedProduct = service.addUserCartProduct(id, productId);
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(addedProduct.getProduct_id())
+                .toUri();
+        return ResponseEntity.created(location).build();
     }
 
     @DeleteMapping("/{id}/cart/products/{productId}")
