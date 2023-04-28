@@ -11,6 +11,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 @Table(name = "user")
 @Entity
@@ -27,27 +31,44 @@ public class User {
 
     @Column(name = "user_last_name")
     private String user_last_name;
+    @Size(min=2, message="Name should have atleast 2 characters")
+
+    
 
     @Column(name = "user_email")
     private String user_email;
+    @Email(message = "Please provide a valid email address")
+
 
     @Column(name = "user_country")
     private String user_country;
+    @NotNull(message = "Country is required")
+
 
     @Column(name = "user_state")
     private String user_state;
+    @NotNull(message = "State is required")
+
 
     @Column(name = "user_city")
     private String user_city;
+    @NotNull(message = "City is required")
+
 
     @Column(name = "user_address1")
     private String user_address1;
+    @Size(max = 100, message = "Address is too long")
+
 
     @Column(name = "user_address2")
     private String user_address2;
+    @Size(max = 100, message = "Address is too long")
+
 
     @Column(name = "user_phone")
     private String user_phone;
+    @Pattern(regexp = "\\d{3}-\\d{3}-\\d{4}", message = "Please provide a valid phone number in the format xxx-xxx-xxxx")
+
 
     // getters and setters
 
