@@ -19,9 +19,9 @@ public class OrderController {
     OrderService orderService;
 
     @PostMapping(value = { "users/{userId}/products/{productId}", "/users/{userId}/products/{productId}" })
-    public ResponseEntity<Order> CreateNewOrder(@RequestBody Order order, @PathVariable Long userId,
+    public ResponseEntity<CostomerOrder> CreateNewOrder(@RequestBody CostomerOrder order, @PathVariable Long userId,
             @PathVariable Long productId) {
-        Order newOrder = orderService.createOrder(order, userId, productId);
+        CostomerOrder newOrder = orderService.createOrder(order, userId, productId);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(newOrder.getOrder_id())
                 .toUri();

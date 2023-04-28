@@ -1,9 +1,6 @@
 package com.resteng.resteng.classes.order;
 
-import java.sql.Date;
 import java.time.LocalDate;
-
-import org.hibernate.annotations.ManyToAny;
 
 import com.resteng.resteng.classes.user.User;
 
@@ -12,11 +9,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
-@Table(name = "order")
+@Table(name = "CostomerOrder")
 @Entity
-public class Order {
+public class CostomerOrder {
    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,13 +27,13 @@ public class Order {
     @Column(name = "order_date")
     private LocalDate order_date;
 
-    @ManyToAny
+    @ManyToOne
     User user;
 
-    public Order() {
+    public CostomerOrder() {
     }
 
-    public Order(double quantity,LocalDate order_date) {
+    public CostomerOrder(double quantity,LocalDate order_date) {
         this.quantity = quantity;
         this.order_date = order_date;
         

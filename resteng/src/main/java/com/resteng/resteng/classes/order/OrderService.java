@@ -27,9 +27,9 @@ public class OrderService {
         this.productRepo = productRepo;
     }
 
-    public Order createOrder(Order order, Long userId, Long productId) {
+    public CostomerOrder createOrder(CostomerOrder order, Long userId, Long productId) {
         LocalDate today = LocalDate.now();
-        Order newOrder = new Order(order.getQuantity(), today);
+        CostomerOrder newOrder = new CostomerOrder(order.getQuantity(), today);
         User user = userRepository.findById(userId).get();
         newOrder.setUser(user);
         orderRepository.save(newOrder);
