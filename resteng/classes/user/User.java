@@ -22,6 +22,8 @@ public class User {
 
     @Column(name = "user_first_name")
     private String user_first_name;
+    @Size(min=2, message="Name should have atleast 2 characters")
+
 
     @Column(name = "user_last_name")
     private String user_last_name;
