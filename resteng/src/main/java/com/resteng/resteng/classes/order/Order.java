@@ -1,6 +1,7 @@
 package com.resteng.resteng.classes.order;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 import org.hibernate.annotations.ManyToAny;
 
@@ -26,7 +27,7 @@ public class Order {
     private double quantity;
 
     @Column(name = "order_date")
-    private Date order_date;
+    private LocalDate order_date;
 
     @ManyToAny
     User user;
@@ -34,7 +35,7 @@ public class Order {
     public Order() {
     }
 
-    public Order(double quantity,Date order_date) {
+    public Order(double quantity,LocalDate order_date) {
         this.quantity = quantity;
         this.order_date = order_date;
         
@@ -56,15 +57,20 @@ public class Order {
         this.quantity = quantity;
     }
 
-    public Date getOrder_date() {
+    public LocalDate getOrder_date() {
         return order_date;
     }
 
-    public void setOrder_date(Date order_date) {
+    public void setOrder_date(LocalDate order_date) {
         this.order_date = order_date;
     }
 
-    
+    public User getUser() {
+        return user;
+    }
 
-   
+    public void setUser(User user) {
+        this.user = user;
+    }
+
 }

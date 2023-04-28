@@ -5,15 +5,20 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.resteng.resteng.classes.bankAccount.BankAccount;
+import com.resteng.resteng.classes.bankAccount.BankRepo;
+
 import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class SupplierService {
 
     private SupplierRepository supplierRepository;
+    private BankRepo bankRepo;
 
-    public SupplierService(SupplierRepository supplierRepository) {
+    public SupplierService(SupplierRepository supplierRepository, BankRepo bankRepo) {
         this.supplierRepository = supplierRepository;
+        this.bankRepo = bankRepo;
     }
 
     List<Supplier> getAllSuppliers() {
@@ -55,4 +60,70 @@ public class SupplierService {
             throw new EntityNotFoundException("Supplier with id " + id + " not found");
         }
     }
+
+    BankAccount getAccountBankOfSupplierById(Long id) {
+        Optional<Supplier> SupplierOptional = supplierRepository.findById(id);
+        if (SupplierOptional.isPresent()) {
+            Supplier Supplier = SupplierOptional.get();
+            return Supplier.getBankAccount();
+        } else {
+            throw new EntityNotFoundException("Supplier with id " + id + " has't bank account");
+        }
+    }
+
+    private BankAccount createsBankAccount(BankAccount bankAccount) {
+        return bankRepo.save(bankAccount);
+    }
+
+    BankAccount createsBankAccountOfSupplierById(Long id, BankAccount bankAccount) {
+        BankAccount bankAccount2 = createsBankAccount(bankAccount);
+        Optional<Supplier> SupplierOptional = supplierRepository.findById(id);
+        if (SupplierOptional.isPresent()) {
+            Supplier newSupplier = SupplierOptional.get();
+            newSupplier.setBankAccount(bankAccount2);
+            replaceSupplier(newSupplier, id);
+            return newSupplier.getBankAccount();
+        } else {
+            throw new EntityNotFoundException("Supplier with id " + id + " not found");
+        }
+    }
+
+    private BankAccount updateBankAccount(Long id, BankAccount bankAccount) {
+        BankAccount updatedBankAccount = bankRepo
+                .findById(supplierRepository.findById(id).get().getBankAccount().getBank_account_id()) //
+                .map(acc -> {
+                    acc.setBank_account_balance(bankAccount.getBank_account_balance());
+                    acc.setBank_account_number(bankAccount.getBank_account_number());
+                    return bankRepo.save(acc);
+                }) //
+                .orElseGet(() -> {
+                    return bankRepo.save(bankAccount);
+                });
+        return updatedBankAccount;
+    }
+
+    BankAccount updateBankAccountOfSupplierById(Long id, BankAccount account) {
+        BankAccount account2 = updateBankAccount(id, account);
+        Optional<Supplier> SupplierOptional = supplierRepository.findById(id);
+        if (SupplierOptional.isPresent()) {
+            Supplier Supplier = SupplierOptional.get();
+            Supplier.setBankAccount(account2);
+            replaceSupplier(Supplier, id);
+            return account;
+        } else {
+            throw new EntityNotFoundException("Supplier with id " + id + " not found");
+        }
+    }
+
+    void deleteSupplierAccountBank(Long id) {
+        Optional<Supplier> SupplierOptional = supplierRepository.findById(id);
+        if (SupplierOptional.isPresent()) {
+            Supplier Supplier = SupplierOptional.get();
+            Supplier.setBankAccount(null);
+            replaceSupplier(Supplier, id);
+        } else {
+            throw new EntityNotFoundException("Supplier with id " + id + " not found");
+        }
+    }
+
 }

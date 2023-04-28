@@ -18,36 +18,36 @@ public class CategorieController {
         return new ResponseEntity<>(categories, HttpStatus.OK);
     }
 
-    // @GetMapping("/{categorieId}")
-    // public ResponseEntity<Categorie> getCategoryById(@PathVariable String categorieId) {
-    //     Categorie categorie = categorieService.getCategoryById(categorieId);
-    //     if (categorie != null) {
-    //         return new ResponseEntity<>(categorie, HttpStatus.OK);
-    //     } else {
-    //         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    //     }
-    // }
+    @GetMapping("/{categorieId}")
+    public ResponseEntity<Categorie> getCategoryById(@PathVariable String categorieId) {
+        Categorie categorie = categorieService.getCategoryById(categorieId);
+        if (categorie != null) {
+            return new ResponseEntity<>(categorie, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 
-    // @PostMapping("")
-    // public ResponseEntity<Categorie> addCategory(@RequestBody Categorie categorie) {
-    //     Categorie savedCategorie = categorieService.addCategory(categorie);
-    //     return new ResponseEntity<>(savedCategorie, HttpStatus.CREATED);
-    // }
+    @PostMapping("")
+    public ResponseEntity<Categorie> addCategory(@RequestBody Categorie categorie) {
+        Categorie savedCategorie = categorieService.addCategory(categorie);
+        return new ResponseEntity<>(savedCategorie, HttpStatus.CREATED);
+    }
 
-    // @PutMapping("/{categorieId}")
-    // public ResponseEntity<Categorie> updateCategory(@PathVariable String categorieId, @RequestBody Categorie updatedCategorie) {
-    //     Categorie categorie = categorieService.updateCategory(categorieId, updatedCategorie);
-    //     if (categorie != null) {
-    //         return new ResponseEntity<>(categorie, HttpStatus.OK);
-    //     } else {
-    //         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    //     }
-    // }
+    @PutMapping("/{categorieId}")
+    public ResponseEntity<Categorie> updateCategory(@PathVariable String categorieId, @RequestBody Categorie updatedCategorie) {
+        Categorie categorie = categorieService.updateCategory(categorieId, updatedCategorie);
+        if (categorie != null) {
+            return new ResponseEntity<>(categorie, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 
-    // @DeleteMapping("/{categorieId}")
-    // public ResponseEntity<HttpStatus> deleteCategory(@PathVariable String categorieId) {
-    //     categorieService.deleteCategory(categorieId);
-    //     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    // }
+    @DeleteMapping("/{categorieId}")
+    public ResponseEntity<HttpStatus> deleteCategory(@PathVariable String categorieId) {
+        categorieService.deleteCategory(categorieId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }
 

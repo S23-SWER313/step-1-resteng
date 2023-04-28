@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class Product_cart_service {
-    
+
     CatrItemRepo catrItemRepo;
 
     public Product_cart_service(CatrItemRepo catrItemRepo) {
@@ -20,6 +20,18 @@ public class Product_cart_service {
     CartItem newCartItem(CartItem CartItem) {
         CartItem newCartItem = catrItemRepo.save(CartItem);
         return newCartItem;
+    }
+
+    List<CartItem> getAllProductCart(Long cartId) {
+        List<CartItem> list = catrItemRepo.findAll().stream()
+                .filter(x -> x.getCart().getId() == cartId).toList();
+        return list;
+    }
+
+    CartItem deleteCartItem(Long id) {
+        CartItem cartItem = catrItemRepo.findById(id).get();
+        catrItemRepo.delete(cartItem);
+        return cartItem;
     }
 
 }

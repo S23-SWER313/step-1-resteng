@@ -1,4 +1,4 @@
-package com.resteng.resteng.classes.cartProduct;
+package com.resteng.resteng.classes.catProduct;
 
 import com.resteng.resteng.classes.categorie.Categorie;
 import com.resteng.resteng.classes.products.Product;

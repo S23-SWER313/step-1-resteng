@@ -1,4 +1,4 @@
-package com.resteng.resteng.classes.cartProduct;
+package com.resteng.resteng.classes.catProduct;
 
 
 import org.springframework.data.jpa.repository.JpaRepository;

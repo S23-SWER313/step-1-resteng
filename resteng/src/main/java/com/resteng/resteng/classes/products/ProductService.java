@@ -5,8 +5,8 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
-import com.resteng.resteng.classes.cartProduct.CartProductRepo;
-import com.resteng.resteng.classes.cartProduct.Cat_prod;
+import com.resteng.resteng.classes.catProduct.CartProductRepo;
+import com.resteng.resteng.classes.catProduct.Cat_prod;
 import com.resteng.resteng.classes.categorie.Categorie;
 
 @Service
