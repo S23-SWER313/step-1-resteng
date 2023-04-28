@@ -9,8 +9,6 @@ import com.resteng.resteng.classes.cartProduct.CartProductRepo;
 import com.resteng.resteng.classes.cartProduct.Cat_prod;
 import com.resteng.resteng.classes.categorie.Categorie;
 
-import jakarta.persistence.EntityNotFoundException;
-
 @Service
 public class ProductService {
     private ProductRepo productRepo;

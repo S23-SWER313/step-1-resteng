@@ -1,6 +1,5 @@
 package com.resteng.resteng.classes.user;
 
-import com.resteng.resteng.classes.account.Account;
 import com.resteng.resteng.classes.bankAccount.BankAccount;
 import com.resteng.resteng.classes.cart.Cart;
 
@@ -49,8 +48,6 @@ public class User {
 
     // getters and setters
 
-    @OneToOne()
-    private Account accounts;
     @OneToOne()
     private BankAccount bankAccount;
     @OneToOne()
@@ -168,11 +165,4 @@ public class User {
         this.user_phone = user_phone;
     }
 
-    public Account getAccounts() {
-        return accounts;
-    }
-
-    public void setAccounts(Account accounts) {
-        this.accounts = accounts;
-    }
 }

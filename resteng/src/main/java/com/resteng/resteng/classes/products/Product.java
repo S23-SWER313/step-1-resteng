@@ -1,8 +1,11 @@
 package com.resteng.resteng.classes.products;
 
+import com.resteng.resteng.classes.supplier.Supplier;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Product {
@@ -15,6 +18,9 @@ public class Product {
     byte[] product_img;
     double product_quantity;
     String product_area;
+
+    @ManyToOne
+    Supplier supplier;
 
     public Product(long product_id, String product_title, double product_price, String product_description,
             byte[] product_img, double product_quantity, String product_area) {
