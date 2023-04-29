@@ -1,11 +1,13 @@
 package com.resteng.resteng.classes.products;
 
+import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import jakarta.validation.Valid;
 
@@ -36,14 +38,18 @@ public class productController {
 
     // PUT /products/{productId}
     @PutMapping("/{productId}")
-    public ResponseEntity<Product> updateProduct(@PathVariable long productId,@Valid @RequestBody Product product) {
+    public ResponseEntity<Product> updateProduct(@PathVariable long productId, @Valid @RequestBody Product product) {
         return new ResponseEntity<>(productService.updateProduct(productId, product), HttpStatus.valueOf(204));
     }
 
     // POST /products
     @PostMapping("")
     public ResponseEntity<Product> addProduct(@Valid @RequestBody Product product) {
-        return new ResponseEntity<>(productService.addProduct(product), HttpStatus.CREATED);
+        Product product2 = productService.addProduct(product);
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{productId}")
+                .buildAndExpand(product2.getProduct_id())
+                .toUri();
+        return ResponseEntity.created(location).build();
     }
 
 }

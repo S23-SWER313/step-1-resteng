@@ -48,28 +48,29 @@ public class UserControler {
 
     @GetMapping("/{id}")
     User getUserById(@PathVariable Long id) {
-    return service.getUserById(id);
+        return service.getUserById(id);
     }
 
     @GetMapping("/{id}/bankAccount")
     BankAccount getAccountBankOfUserById(@PathVariable Long id) {
-    return service.getAccountBankOfUserById(id);
+        return service.getAccountBankOfUserById(id);
     }
 
     @PostMapping("/{id}/bankAccount")
-    BankAccount createUserBankAccountById(@PathVariable Long id, @RequestBody
-    BankAccount bankAccount) {
-    return service.createsBankAccountOfUserById(id, bankAccount);
+    ResponseEntity<BankAccount> createUserBankAccountById(@PathVariable Long id, @RequestBody BankAccount bankAccount) {
+        BankAccount bankAccount2 =  service.createsBankAccountOfUserById(id, bankAccount);
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}/bankAccount").buildAndExpand(bankAccount2.getBank_account_id())
+                .toUri();
+        return ResponseEntity.created(location).build();
     }
 
     @PutMapping("/{id}/bankAccount")
-    BankAccount updateBankAccountOfUserById(@PathVariable Long id, @RequestBody
-    BankAccount bankAccount) {
-    return service.updateBankAccountOfUserById(id, bankAccount);
+    BankAccount updateBankAccountOfUserById(@PathVariable Long id, @RequestBody BankAccount bankAccount) {
+        return service.updateBankAccountOfUserById(id, bankAccount);
     }
 
     @DeleteMapping("/{id}/bankAccount")
     void deleteBankAccountOfUserById(@PathVariable Long id) {
-    service.deleteUserAccountBank(id);
+        service.deleteUserAccountBank(id);
     }
 }
