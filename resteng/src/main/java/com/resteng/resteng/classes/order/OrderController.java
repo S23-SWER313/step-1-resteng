@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api/v1/orders")
 public class OrderController {
@@ -19,7 +21,7 @@ public class OrderController {
     OrderService orderService;
 
     @PostMapping(value = { "users/{userId}/products/{productId}", "/users/{userId}/products/{productId}" })
-    public ResponseEntity<CostomerOrder> CreateNewOrder(@RequestBody CostomerOrder order, @PathVariable Long userId,
+    public ResponseEntity<CostomerOrder> CreateNewOrder(@Valid @RequestBody CostomerOrder order, @PathVariable Long userId,
             @PathVariable Long productId) {
         CostomerOrder newOrder = orderService.createOrder(order, userId, productId);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")

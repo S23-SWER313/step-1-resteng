@@ -9,6 +9,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Table(name = "supplier")
 @Entity
@@ -19,30 +22,44 @@ public class Supplier {
     private Long supplier_id;
 
     @Column(name = "supplier_first_name")
+    @Size(min = 2, message = "Category Name should have atleast 2 characters")
     private String supplier_first_name;
 
     @Column(name = "supplier_last_name")
+    @Size(min = 2, message = "Category Name should have atleast 2 characters")
     private String supplier_last_name;
 
     @Column(name = "supplier_email")
+    @NotNull
+    @NotBlank
     private String supplier_email;
 
     @Column(name = "supplier_country")
+    @NotNull
+    @NotBlank
     private String supplier_country;
 
     @Column(name = "supplier_state")
+    @NotNull
+    @NotBlank
     private String supplier_state;
 
     @Column(name = "supplier_city")
+    @NotNull
+    @NotBlank
     private String supplier_city;
 
     @Column(name = "supplier_address1")
+    @NotNull
+    @NotBlank
     private String supplier_address1;
 
     @Column(name = "supplier_address2")
     private String supplier_address2;
 
     @Column(name = "supplier_phone")
+    @NotNull
+    @NotBlank
     private String supplier_phone;
 
     @OneToOne()

@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api/v1/suppliers")
 public class SupplierController {
@@ -28,7 +30,7 @@ public class SupplierController {
     }
 
     @PostMapping(value = { "", "/" })
-    public ResponseEntity<Supplier> CreateNewSupplier(@RequestBody Supplier supplier) {
+    public ResponseEntity<Supplier> CreateNewSupplier(@Valid @RequestBody Supplier supplier) {
         Supplier supplier2 = service.newSupplier(supplier);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(supplier2.getSupplier_id())
@@ -37,7 +39,7 @@ public class SupplierController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Supplier> updateSupplier(@RequestBody Supplier newSupplier, @PathVariable Long id) {
+    public ResponseEntity<Supplier> updateSupplier(@Valid @RequestBody Supplier newSupplier, @PathVariable Long id) {
         Supplier supplier = service.replaceSupplier(newSupplier, id);
         return new ResponseEntity<>(supplier, HttpStatus.valueOf(204));
     }

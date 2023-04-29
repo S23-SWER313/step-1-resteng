@@ -17,6 +17,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.resteng.resteng.classes.bankAccount.BankAccount;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api/v1/users")
 public class UserControler {
@@ -31,7 +33,7 @@ public class UserControler {
     }
 
     @PostMapping(value = { "", "/" })
-    public ResponseEntity<User> CreateNewUser(@RequestBody User user) {
+    public ResponseEntity<User> CreateNewUser(@Valid @RequestBody User user) {
         User user2 = service.newUser(user);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(user2.getUser_id())
                 .toUri();
@@ -39,7 +41,7 @@ public class UserControler {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<User> updateUser(@RequestBody User newUser, @PathVariable Long id) {
+    public ResponseEntity<User> updateUser(@Valid @RequestBody User newUser, @PathVariable Long id) {
         User user = service.replaceUser(newUser, id);
         return new ResponseEntity<>(user, HttpStatus.valueOf(204));
     }

@@ -11,6 +11,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
 @Table(name = "CostomerOrder")
 @Entity
@@ -22,9 +24,11 @@ public class CostomerOrder {
     private Long order_id;
 
     @Column(name = "quantity")
+    @Positive
     private double quantity;
 
     @Column(name = "order_date")
+    @NotNull
     private LocalDate order_date;
 
     @ManyToOne

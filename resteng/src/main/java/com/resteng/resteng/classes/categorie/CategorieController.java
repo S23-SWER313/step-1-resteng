@@ -1,9 +1,14 @@
 package com.resteng.resteng.classes.categorie;
 
+import java.net.URI;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/categorie")
@@ -29,13 +34,15 @@ public class CategorieController {
     }
 
     @PostMapping("")
-    public ResponseEntity<Categorie> addCategory(@RequestBody Categorie categorie) {
+    public ResponseEntity<Categorie> addCategory(@Valid @RequestBody Categorie categorie) {
         Categorie savedCategorie = categorieService.addCategory(categorie);
-        return new ResponseEntity<>(savedCategorie, HttpStatus.CREATED);
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{categorieId}").buildAndExpand(savedCategorie.getCategorie_title())
+        .toUri();
+        return ResponseEntity.created(location).build();
     }
 
     @PutMapping("/{categorieId}")
-    public ResponseEntity<Categorie> updateCategory(@PathVariable String categorieId, @RequestBody Categorie updatedCategorie) {
+    public ResponseEntity<Categorie> updateCategory(@PathVariable String categorieId,@Valid @RequestBody Categorie updatedCategorie) {
         Categorie categorie = categorieService.updateCategory(categorieId, updatedCategorie);
         if (categorie != null) {
             return new ResponseEntity<>(categorie, HttpStatus.OK);

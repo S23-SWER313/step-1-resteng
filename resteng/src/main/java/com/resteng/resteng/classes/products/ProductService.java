@@ -5,16 +5,16 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
-import com.resteng.resteng.classes.catProduct.CartProductRepo;
+import com.resteng.resteng.classes.catProduct.Cat_productRepo;
 import com.resteng.resteng.classes.catProduct.Cat_prod;
 import com.resteng.resteng.classes.categorie.Categorie;
 
 @Service
 public class ProductService {
     private ProductRepo productRepo;
-    private CartProductRepo cartProductRepo;
+    private Cat_productRepo cartProductRepo;
 
-    public ProductService(ProductRepo productRepo, CartProductRepo cartProductRepo) {
+    public ProductService(ProductRepo productRepo, Cat_productRepo cartProductRepo) {
         this.productRepo = productRepo;
         this.cartProductRepo = cartProductRepo;
     }

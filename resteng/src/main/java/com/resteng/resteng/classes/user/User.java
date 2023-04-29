@@ -10,6 +10,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Table(name = "user")
 @Entity
@@ -20,30 +23,44 @@ public class User {
     private Long user_id;
 
     @Column(name = "user_first_name")
+    @Size(min=2, message="Category Name should have atleast 2 characters")
     private String user_first_name;
 
     @Column(name = "user_last_name")
+    @Size(min=2, message="Category Name should have atleast 2 characters")
     private String user_last_name;
 
     @Column(name = "user_email")
+    @NotNull
+    @NotBlank
     private String user_email;
 
     @Column(name = "user_country")
+    @NotNull
+    @NotBlank
     private String user_country;
 
     @Column(name = "user_state")
+    @NotNull
+    @NotBlank
     private String user_state;
 
     @Column(name = "user_city")
+    @NotNull
+    @NotBlank
     private String user_city;
 
     @Column(name = "user_address1")
+    @NotNull
+    @NotBlank
     private String user_address1;
 
     @Column(name = "user_address2")
     private String user_address2;
 
     @Column(name = "user_phone")
+    @NotNull
+    @NotBlank
     private String user_phone;
 
     // getters and setters

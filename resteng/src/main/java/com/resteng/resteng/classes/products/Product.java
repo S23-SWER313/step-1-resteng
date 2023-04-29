@@ -6,17 +6,24 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class Product {
     @Id
     @GeneratedValue
     long product_id;
+    @Size(min=2, message="Category Name should have atleast 2 characters")
     String product_title;
+    @Positive
     double product_price;
     String product_description;
     byte[] product_img;
+    @Positive
     double product_quantity;
+    @NotBlank
     String product_area;
 
     @ManyToOne
