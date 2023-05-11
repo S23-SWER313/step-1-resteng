@@ -21,9 +21,9 @@ public class Product_cart_controller {
     @Autowired
     private Product_cart_service product_cart_service;
 
-    @PostMapping(value = { "", "/" })
-    public ResponseEntity<CartItem> CreateNewCartItem(@RequestBody CartItem CartItem) {
-        CartItem CartItem2 = product_cart_service.newCartItem(CartItem);
+    @PostMapping(value = { "carts/{cartId}/products/{productId}", "/carts/{cartId}/products/{productId}" })
+    public ResponseEntity<CartItem> CreateNewCartItem(@PathVariable Long cartId, @PathVariable Long productId) {
+        CartItem CartItem2 = product_cart_service.newCartItem(cartId, productId);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(CartItem2.getCart_item_id())
                 .toUri();
         return ResponseEntity.created(location).build();
