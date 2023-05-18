@@ -42,6 +42,7 @@ public class SupplierService {
                     supplier.setSupplier_address1(newSupplier.getSupplier_address1());
                     supplier.setSupplier_address2(newSupplier.getSupplier_address2());
                     supplier.setSupplier_phone(newSupplier.getSupplier_phone());
+                    supplier.setSupplier_password(newSupplier.getSupplier_password());
                     return supplierRepository.save(supplier);
                 }) //
                 .orElseGet(() -> {
@@ -126,4 +127,50 @@ public class SupplierService {
         }
     }
 
+    public BankAccount getAccountBankOfSuppluerById(Long id) {
+        Optional<Supplier> supplierOptional = supplierRepository.findById(id);
+        if (supplierOptional.isPresent()) {
+            Supplier supplier = supplierOptional.get();
+            return supplier.getBankAccount();
+        } else {
+            throw new EntityNotFoundException("User with id " + id + " has't bank account");
+        }
+    }
+
+    public BankAccount createsBankAccountOfSuppluerById(Long id, BankAccount bankAccount) {
+        BankAccount bankAccount2 = createsBankAccount(bankAccount);
+        Optional<Supplier> supplierOptional = supplierRepository.findById(id);
+        if (supplierOptional.isPresent()) {
+            Supplier newSupplier = supplierOptional.get();
+            newSupplier.setBankAccount(bankAccount2);
+            replaceSupplier(newSupplier, id);
+            return newSupplier.getBankAccount();
+        } else {
+            throw new EntityNotFoundException("User with id " + id + " not found");
+        }
+    }
+
+    public BankAccount updateBankAccountOfSuppluerById(Long id, BankAccount bankAccount) {
+        BankAccount account2 = updateBankAccount(id, bankAccount);
+        Optional<Supplier> supplierOptional = supplierRepository.findById(id);
+        if (supplierOptional.isPresent()) {
+            Supplier user = supplierOptional.get();
+            user.setBankAccount(account2);
+            replaceSupplier(user, id);
+            return bankAccount;
+        } else {
+            throw new EntityNotFoundException("User with id " + id + " not found");
+        }
+    }
+
+    public void deleteSuppluerAccountBank(Long id) {
+        Optional<Supplier> SupplierOptional = supplierRepository.findById(id);
+        if (SupplierOptional.isPresent()) {
+            Supplier Supplier = SupplierOptional.get();
+            Supplier.setBankAccount(null);
+            replaceSupplier(Supplier, id);
+        } else {
+            throw new EntityNotFoundException("User with id " + id + " not found");
+        }
+    }
 }

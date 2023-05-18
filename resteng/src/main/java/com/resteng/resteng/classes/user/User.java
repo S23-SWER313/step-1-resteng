@@ -63,6 +63,11 @@ public class User {
     @NotBlank
     private String user_phone;
 
+    @Column(name = "user_password")
+    @NotNull
+    @NotBlank
+    private String user_password;
+
     // getters and setters
 
     @OneToOne()
@@ -74,7 +79,7 @@ public class User {
     }
 
     public User(String user_first_name, String user_last_name, String user_email, String user_country,
-            String user_state, String user_city, String user_address1, String user_address2, String user_phone) {
+            String user_state, String user_city, String user_address1, String user_address2, String user_phone, String user_password) {
         this.user_first_name = user_first_name;
         this.user_last_name = user_last_name;
         this.user_email = user_email;
@@ -84,7 +89,10 @@ public class User {
         this.user_address1 = user_address1;
         this.user_address2 = user_address2;
         this.user_phone = user_phone;
+        this.user_password = user_password;
     }
+
+    
 
     public Cart getCart() {
         return cart;
@@ -180,6 +188,14 @@ public class User {
 
     public void setUser_phone(String user_phone) {
         this.user_phone = user_phone;
+    }
+
+    public String getUser_password() {
+        return user_password;
+    }
+
+    public void setUser_password(String user_password) {
+        this.user_password = user_password;
     }
 
 }

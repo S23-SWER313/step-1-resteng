@@ -49,6 +49,7 @@ public class MainService {
                     user.setUser_address2(newUser.getUser_address2());
                     user.setUser_phone(newUser.getUser_phone());
                     user.setCart(newUser.getCart());
+                    user.setUser_password(newUser.getUser_password());
                     return userRepository.save(user);
                 }) //
                 .orElseGet(() -> {

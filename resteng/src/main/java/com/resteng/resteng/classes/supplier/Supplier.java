@@ -62,6 +62,11 @@ public class Supplier {
     @NotBlank
     private String supplier_phone;
 
+    @Column(name = "supplier_password")
+    @NotNull
+    @NotBlank
+    private String supplier_password;
+
     @OneToOne()
     private BankAccount bankAccount;
 
@@ -71,7 +76,7 @@ public class Supplier {
     public Supplier(String supplier_first_name, String supplier_last_name, String supplier_email,
             String supplier_country,
             String supplier_state, String supplier_city, String supplier_address1, String supplier_address2,
-            String supplier_phone) {
+            String supplier_phone, String supplier_password) {
 
         this.supplier_first_name = supplier_first_name;
         this.supplier_last_name = supplier_last_name;
@@ -82,6 +87,7 @@ public class Supplier {
         this.supplier_address1 = supplier_address1;
         this.supplier_address2 = supplier_address2;
         this.supplier_phone = supplier_phone;
+        this.supplier_password = supplier_password;
     }
 
     public Long getSupplier_id() {
@@ -170,6 +176,14 @@ public class Supplier {
 
     public void setBankAccount(BankAccount bankAccount) {
         this.bankAccount = bankAccount;
+    }
+
+    public String getSupplier_password() {
+        return supplier_password;
+    }
+
+    public void setSupplier_password(String supplier_password) {
+        this.supplier_password = supplier_password;
     }
 
 }

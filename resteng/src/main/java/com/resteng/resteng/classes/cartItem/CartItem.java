@@ -53,4 +53,11 @@ public class CartItem {
     public void setCart(Cart cart) {
         this.cart = cart;
     }
+
+    @Override
+    public String toString() {
+        return "CartItem [cart_item_id=" + cart_item_id + "]";
+    }
+
+    
 }

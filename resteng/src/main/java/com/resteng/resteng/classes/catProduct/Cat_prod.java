@@ -13,9 +13,13 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 public class Cat_prod {
+
+    public Cat_prod(Categorie categorie, Product product) {
+        this.categorie = categorie;
+        this.product = product;
+    }
 
     @Id
     @GeneratedValue
