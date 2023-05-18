@@ -23,7 +23,7 @@ public class Product_cart_controller {
     @PostMapping(value = { "carts/{cartId}/products/{productId}", "/carts/{cartId}/products/{productId}" })
     public ResponseEntity<CartItem> CreateNewCartItem(@PathVariable Long cartId, @PathVariable Long productId) {
         CartItem CartItem2 = product_cart_service.newCartItem(cartId, productId);
-<<<<<<< HEAD
+
         if (CartItem2 != null) {
             URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                     .buildAndExpand(CartItem2.getCart_item_id())
@@ -32,11 +32,6 @@ public class Product_cart_controller {
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-=======
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(CartItem2.getCart_item_id())
-                .toUri();
-        return ResponseEntity.created(location).build();
->>>>>>> ffda62d01a1958b9dda436e55936ee60425f926f
     }
 
     @GetMapping(value = { "{cartId}", "/{cartId}" })
