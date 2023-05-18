@@ -25,6 +25,7 @@ public class Product_cart_service {
     }
 
     CartItem newCartItem(Long cartId, Long productId) {
+<<<<<<< HEAD
         if (productRepo.findById(productId).isPresent()) {
             Product product = productRepo.findById(productId).get();
             if (cartRepo.findById(cartId).isPresent()) {
@@ -37,6 +38,13 @@ public class Product_cart_service {
 
         return null;
 
+=======
+        Product product = productRepo.findById(productId).get();
+        Cart cart = cartRepo.findById(cartId).get();
+        CartItem CartItem = new CartItem(product,cart);
+        CartItem newCartItem = catrItemRepo.save(CartItem);
+        return newCartItem;
+>>>>>>> ffda62d01a1958b9dda436e55936ee60425f926f
     }
 
     List<CartItem> getAllProductCart(Long cartId) {

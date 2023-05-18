@@ -53,11 +53,14 @@
 
 		<!-- <dependency>
 			<groupId>org.springframework.boot</groupId>
+<<<<<<< HEAD
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency> -->
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
+=======
+>>>>>>> ffda62d01a1958b9dda436e55936ee60425f926f
 			<artifactId>spring-boot-starter-validation</artifactId>
 		</dependency>
 

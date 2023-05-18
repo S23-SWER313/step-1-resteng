@@ -11,7 +11,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/categorie")
+@RequestMapping("/api/v1/categorie")
 public class CategorieController {
 
     @Autowired
