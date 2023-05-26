@@ -15,7 +15,7 @@ public class Product {
     @Id
     @GeneratedValue
     long product_id;
-    @Size(min=2, message="Category Name should have atleast 2 characters")
+    @Size(min = 2, message = "Category Name should have atleast 2 characters")
     String product_title;
     @Positive
     double product_price;
@@ -25,19 +25,38 @@ public class Product {
     double product_quantity;
     @NotBlank
     String product_area;
+    String type;
 
     @ManyToOne
     Supplier supplier;
 
-    public Product(long product_id, String product_title, double product_price, String product_description,
-            byte[] product_img, double product_quantity, String product_area) {
-        this.product_id = product_id;
+    public Product(@Size(min = 2, message = "Category Name should have atleast 2 characters") String product_title,
+            @Positive double product_price, String product_description, byte[] product_img,
+            @Positive double product_quantity, @NotBlank String product_area, String type, Supplier supplier) {
         this.product_title = product_title;
         this.product_price = product_price;
         this.product_description = product_description;
         this.product_img = product_img;
         this.product_quantity = product_quantity;
         this.product_area = product_area;
+        this.type = type;
+        this.supplier = supplier;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Supplier getSupplier() {
+        return supplier;
+    }
+
+    public void setSupplier(Supplier supplier) {
+        this.supplier = supplier;
     }
 
     public Product() {
