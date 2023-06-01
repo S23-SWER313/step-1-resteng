@@ -1,0 +1,119 @@
+.profile {
+    padding: 20px;
+      background-color: #a0f3a3;
+  }
+  
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .user-info {
+    display: flex;
+    align-items: center;
+  }
+  
+  .profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-image: url('https://hmp.me/d4p3');
+    margin-right: 10px;
+  }
+  
+  h3 {
+    margin: 0;
+  }
+  
+  .edit-profile-btn {
+    padding: 10px 20px;
+    background-color: #19d319;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .products {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+  }
+  
+  .product-rectangular {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 5px;
+
+  }
+  
+  .product-square {
+    display: flex;
+    border-radius: 50px;
+    
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .product-image {
+    width: 100px;
+    height: 100px;
+    background-image: url('https://hmp.me/d4p5');
+    margin-bottom: 10px;
+  }
+  
+  h4 {
+    margin: 0;
+  }
+  
+  p {
+    margin: 0;
+  }
+  
+  .icons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
+  .basket-icon {
+    width: 20px;
+    height: 20px;
+    background-image: url('https://hmp.me/d4p1');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    cursor: pointer;
+  }
+  /* .share-icon {
+    width: 20px;
+    height: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    cursor: pointer;
+  } */
+  .share-icon {
+    width: 20px;
+    height: 20px;
+    background-image: url('https://hmp.me/d4p0');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .basket-icon:hover {
+    background-color: #a1f7a3;
+  }
+  .share-icon:hover{
+    background-color: #8af88d;
+
+  }
+  
