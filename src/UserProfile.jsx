@@ -37,9 +37,12 @@ const UserProfile = () => {
         >
           Edit Profile
         </button>
+       
       </div>
       <div className="profile-details">
+      
         <div className="profile-field">
+          
           <span className="field-label">User ID:</span>
           <span className="field-value">{userId}</span>
         </div>
