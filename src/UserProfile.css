@@ -1,119 +1,72 @@
-.profile {
-    padding: 20px;
-      background-color: #a0f3a3;
-  }
-  
-  .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  .user-info {
-    display: flex;
-    align-items: center;
-  }
-  
-  .profile-pic {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-image: url('https://hmp.me/d4p3');
-    margin-right: 10px;
-  }
-  
-  h3 {
-    margin: 0;
-  }
-  
-  .edit-profile-btn {
-    padding: 10px 20px;
-    background-color: #19d319;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .products {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 20px;
-  }
-  
-  .product-rectangular {
-    background-color: #fff;
-    border: 1px solid #ccc;
-    padding: 20px;
-    border-radius: 5px;
+.user-profile {
+  border: 4px solid #ccc;
+  padding: 20px;
+  margin: 20px;
+  background-color: #d9f9cb;
+}
 
-  }
-  
-  .product-square {
-    display: flex;
-    border-radius: 50px;
-    
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .product-image {
-    width: 100px;
-    height: 100px;
-    background-image: url('https://hmp.me/d4p5');
-    margin-bottom: 10px;
-  }
-  
-  h4 {
-    margin: 0;
-  }
-  
-  p {
-    margin: 0;
-  }
-  
-  .icons {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 10px;
-  }
-  
-  .basket-icon {
-    width: 20px;
-    height: 20px;
-    background-image: url('https://hmp.me/d4p1');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    border: none;
-    cursor: pointer;
-  }
-  /* .share-icon {
-    width: 20px;
-    height: 20px;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 50%;
-    cursor: pointer;
-  } */
-  .share-icon {
-    width: 20px;
-    height: 20px;
-    background-image: url('https://hmp.me/d4p0');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .basket-icon:hover {
-    background-color: #a1f7a3;
-  }
-  .share-icon:hover{
-    background-color: #8af88d;
+.navbar {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
 
-  }
-  
+.profile-picture {
+  width: 150px;
+  height: 150px;
+  border-radius: 80%;
+  background-color: #ccc;
+  margin-right: 10px;
+}
+
+.save-profile-button {
+  padding: 10px;
+  background-color:#96e273;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  /* place-content: right; */
+}
+
+.profile-details {
+  margin-bottom: 20px;
+}
+
+.profile-field {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.field-label {
+  font-weight: bold;
+  margin-right: 10px;
+  width: 150px;
+}
+
+.field-value {
+  font-weight: normal;
+}
+
+input[type='text'] {
+  width: 100%;
+  padding: 5px;
+}
+
+input[type='password'] {
+  width: 100%;
+  padding: 5px;
+}
+
+input[type='text'],
+input[type='password'],
+textarea {
+  border: 3px solid #96e273;
+  border-radius: 5px;
+}
+
+.profile-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
