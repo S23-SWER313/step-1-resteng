@@ -3,29 +3,33 @@ package com.resteng.resteng.classes.supplier;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.stereotype.Service;
 
 import com.resteng.resteng.classes.bankAccount.BankAccount;
 import com.resteng.resteng.classes.bankAccount.BankRepo;
+import com.resteng.resteng.classes.mainUser.MainUser;
+import com.resteng.resteng.classes.mainUser.MainUserRepo;
 
-import jakarta.persistence.EntityNotFoundException;
+import lombok.AllArgsConstructor;
 
 @Service
+@AllArgsConstructor
 public class SupplierService {
 
     private SupplierRepository supplierRepository;
     private BankRepo bankRepo;
-
-    public SupplierService(SupplierRepository supplierRepository, BankRepo bankRepo) {
-        this.supplierRepository = supplierRepository;
-        this.bankRepo = bankRepo;
-    }
+    private MainUserRepo mainUserRepo;
 
     List<Supplier> getAllSuppliers() {
         return supplierRepository.findAll();
     }
 
-    Supplier newSupplier(Supplier supplier) {
+    public Supplier newSupplier(Supplier supplier) {
+        // MainUser mainUser = supplier.getMainUser();
+        // if (mainUser != null)
+        //     mainUserRepo.save(mainUser);
         Supplier newSupplier = supplierRepository.save(supplier);
         return newSupplier;
     }
@@ -42,7 +46,6 @@ public class SupplierService {
                     supplier.setSupplier_address1(newSupplier.getSupplier_address1());
                     supplier.setSupplier_address2(newSupplier.getSupplier_address2());
                     supplier.setSupplier_phone(newSupplier.getSupplier_phone());
-                    supplier.setSupplier_password(newSupplier.getSupplier_password());
                     return supplierRepository.save(supplier);
                 }) //
                 .orElseGet(() -> {

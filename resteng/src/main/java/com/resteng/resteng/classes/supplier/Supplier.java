@@ -1,20 +1,27 @@
 package com.resteng.resteng.classes.supplier;
 
-import com.resteng.resteng.classes.bankAccount.BankAccount;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import com.resteng.resteng.classes.bankAccount.BankAccount;
+import com.resteng.resteng.classes.entity.Role;
+import com.resteng.resteng.classes.mainUser.MainUser;
+
+import lombok.Getter;
+import lombok.Setter;
 
 @Table(name = "supplier")
 @Entity
+@Getter
+@Setter
 public class Supplier {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -62,22 +69,22 @@ public class Supplier {
     @NotBlank
     private String supplier_phone;
 
-    @Column(name = "supplier_password")
-    @NotNull
-    @NotBlank
-    private String supplier_password;
-
     @OneToOne()
     private BankAccount bankAccount;
+
+    @OneToOne()
+    private MainUser mainUser;
 
     public Supplier() {
     }
 
-    public Supplier(String supplier_first_name, String supplier_last_name, String supplier_email,
-            String supplier_country,
-            String supplier_state, String supplier_city, String supplier_address1, String supplier_address2,
-            String supplier_phone, String supplier_password) {
-
+    public Supplier(
+            @Size(min = 2, message = "Category Name should have atleast 2 characters") String supplier_first_name,
+            @Size(min = 2, message = "Category Name should have atleast 2 characters") String supplier_last_name,
+            @NotNull @NotBlank String supplier_email, @NotNull @NotBlank String supplier_country,
+            @NotNull @NotBlank String supplier_state, @NotNull @NotBlank String supplier_city,
+            @NotNull @NotBlank String supplier_address1, String supplier_address2,
+            @NotNull @NotBlank String supplier_phone, BankAccount bankAccount) {
         this.supplier_first_name = supplier_first_name;
         this.supplier_last_name = supplier_last_name;
         this.supplier_email = supplier_email;
@@ -87,103 +94,7 @@ public class Supplier {
         this.supplier_address1 = supplier_address1;
         this.supplier_address2 = supplier_address2;
         this.supplier_phone = supplier_phone;
-        this.supplier_password = supplier_password;
-    }
-
-    public Long getSupplier_id() {
-        return supplier_id;
-    }
-
-    public void setSupplier_id(Long supplier_id) {
-        this.supplier_id = supplier_id;
-    }
-
-    public String getSupplier_first_name() {
-        return supplier_first_name;
-    }
-
-    public void setSupplier_first_name(String supplier_first_name) {
-        this.supplier_first_name = supplier_first_name;
-    }
-
-    public String getSupplier_last_name() {
-        return supplier_last_name;
-    }
-
-    public void setSupplier_last_name(String supplier_last_name) {
-        this.supplier_last_name = supplier_last_name;
-    }
-
-    public String getSupplier_email() {
-        return supplier_email;
-    }
-
-    public void setSupplier_email(String supplier_email) {
-        this.supplier_email = supplier_email;
-    }
-
-    public String getSupplier_country() {
-        return supplier_country;
-    }
-
-    public void setSupplier_country(String supplier_country) {
-        this.supplier_country = supplier_country;
-    }
-
-    public String getSupplier_state() {
-        return supplier_state;
-    }
-
-    public void setSupplier_state(String supplier_state) {
-        this.supplier_state = supplier_state;
-    }
-
-    public String getSupplier_city() {
-        return supplier_city;
-    }
-
-    public void setSupplier_city(String supplier_city) {
-        this.supplier_city = supplier_city;
-    }
-
-    public String getSupplier_address1() {
-        return supplier_address1;
-    }
-
-    public void setSupplier_address1(String supplier_address1) {
-        this.supplier_address1 = supplier_address1;
-    }
-
-    public String getSupplier_address2() {
-        return supplier_address2;
-    }
-
-    public void setSupplier_address2(String supplier_address2) {
-        this.supplier_address2 = supplier_address2;
-    }
-
-    public String getSupplier_phone() {
-        return supplier_phone;
-    }
-
-    public void setSupplier_phone(String supplier_phone) {
-        this.supplier_phone = supplier_phone;
-    }
-
-    public BankAccount getBankAccount() {
-        return bankAccount;
-    }
-
-    public void setBankAccount(BankAccount bankAccount) {
         this.bankAccount = bankAccount;
-    }
-
-    public String getSupplier_password() {
-        return supplier_password;
-    }
-
-    public void setSupplier_password(String supplier_password) {
-        this.supplier_password = supplier_password;
     }
 
 }

@@ -2,22 +2,22 @@ package com.resteng.resteng.classes.order;
 
 import java.time.LocalDate;
 
-import com.resteng.resteng.classes.user.User;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
+import com.resteng.resteng.classes.user.AppUser;
 
 @Table(name = "CostomerOrder")
 @Entity
 public class CostomerOrder {
-   
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_id")
@@ -32,15 +32,15 @@ public class CostomerOrder {
     private LocalDate order_date;
 
     @ManyToOne
-    User user;
+    AppUser user;
 
     public CostomerOrder() {
     }
 
-    public CostomerOrder(double quantity,LocalDate order_date) {
+    public CostomerOrder(double quantity, LocalDate order_date) {
         this.quantity = quantity;
         this.order_date = order_date;
-        
+
     }
 
     public Long getOrder_id() {
@@ -67,11 +67,11 @@ public class CostomerOrder {
         this.order_date = order_date;
     }
 
-    public User getUser() {
+    public AppUser getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(AppUser user) {
         this.user = user;
     }
 

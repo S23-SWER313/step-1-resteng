@@ -1,14 +1,15 @@
 package com.resteng.resteng.classes.products;
 
-import com.resteng.resteng.classes.supplier.Supplier;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.Size;
+import com.resteng.resteng.classes.supplier.Supplier;
 
 @Entity
 public class Product {
@@ -20,7 +21,8 @@ public class Product {
     @Positive
     double product_price;
     String product_description;
-    byte[] product_img;
+    @Column(length = 99999999)
+    String product_img;
     @Positive
     double product_quantity;
     @NotBlank
@@ -31,8 +33,8 @@ public class Product {
     Supplier supplier;
 
     public Product(@Size(min = 2, message = "Category Name should have atleast 2 characters") String product_title,
-            @Positive double product_price, String product_description, byte[] product_img,
-            @Positive double product_quantity, @NotBlank String product_area, String type, Supplier supplier) {
+            @Positive double product_price, String product_description, String product_img,
+            @Positive double product_quantity, @NotBlank String product_area, String type) {
         this.product_title = product_title;
         this.product_price = product_price;
         this.product_description = product_description;
@@ -40,7 +42,6 @@ public class Product {
         this.product_quantity = product_quantity;
         this.product_area = product_area;
         this.type = type;
-        this.supplier = supplier;
     }
 
     public String getType() {
@@ -94,14 +95,6 @@ public class Product {
         this.product_description = product_description;
     }
 
-    public byte[] getProduct_img() {
-        return product_img;
-    }
-
-    public void setProduct_img(byte[] product_img) {
-        this.product_img = product_img;
-    }
-
     public double getProduct_quantity() {
         return product_quantity;
     }
@@ -116,6 +109,14 @@ public class Product {
 
     public void setProduct_area(String product_area) {
         this.product_area = product_area;
+    }
+
+    public String getProduct_img() {
+        return product_img;
+    }
+
+    public void setProduct_img(String product_img) {
+        this.product_img = product_img;
     }
 
 }

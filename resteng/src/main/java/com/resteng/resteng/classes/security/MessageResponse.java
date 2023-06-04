@@ -1,4 +1,4 @@
-package com.resteng.resteng.classes.Security;
+package com.resteng.resteng.classes.security;
 
 public class MessageResponse {
     private String message;
