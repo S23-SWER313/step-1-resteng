@@ -1,8 +1,8 @@
 package com.resteng.resteng.classes.cart;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 @Entity
 public class Cart {
@@ -15,10 +15,6 @@ public class Cart {
     }
 
     public void setId(Long id) {
-        this.cart_id = id;
-    }
-
-    public Cart(Long id) {
         this.cart_id = id;
     }
 

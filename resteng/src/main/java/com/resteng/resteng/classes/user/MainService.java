@@ -1,43 +1,51 @@
 package com.resteng.resteng.classes.user;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
+import javax.persistence.EntityNotFoundException;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.resteng.resteng.classes.bankAccount.BankAccount;
 import com.resteng.resteng.classes.bankAccount.BankRepo;
 import com.resteng.resteng.classes.cart.Cart;
 import com.resteng.resteng.classes.cart.CartRepo;
+import com.resteng.resteng.classes.mainUser.MainUserRepo;
 
-import jakarta.persistence.EntityNotFoundException;
+import lombok.AllArgsConstructor;
 
 @Service
+@AllArgsConstructor
 public class MainService {
 
     private UserRepository userRepository;
     private BankRepo bankRepo;
     private CartRepo cartRepo;
+    private MainUserRepo mainUserRepo;
 
-    public MainService(UserRepository userRepository, BankRepo bankRepo, CartRepo cartRepo) {
-        this.userRepository = userRepository;
-        this.bankRepo = bankRepo;
-        this.cartRepo = cartRepo;
-    }
-
-    List<User> getAllUser() {
+    public List<AppUser> getAllUser() {
         return userRepository.findAll();
     }
 
-    User newUser(User user) {
-        User newUser = userRepository.save(user);
+    public AppUser newUser(AppUser user) {
         Cart cart = cartRepo.save(new Cart());
-        newUser.setCart(cart);
-        replaceUser(newUser, user.getUser_id());
-        return user;
+        user.setCart(cart);
+        mainUserRepo.save(user.getMainUser());
+        AppUser newUser = userRepository.save(user);
+        return newUser;
     }
 
-    User replaceUser(User newUser, Long id) {
-        User updatedUser = userRepository.findById(id) //
+    AppUser replaceUser(AppUser newUser, Long id) {
+        AppUser updatedUser = userRepository.findById(id) //
                 .map(user -> {
                     user.setUser_first_name(newUser.getUser_first_name());
                     user.setUser_last_name(newUser.getUser_last_name());
@@ -49,7 +57,6 @@ public class MainService {
                     user.setUser_address2(newUser.getUser_address2());
                     user.setUser_phone(newUser.getUser_phone());
                     user.setCart(newUser.getCart());
-                    user.setUser_password(newUser.getUser_password());
                     return userRepository.save(user);
                 }) //
                 .orElseGet(() -> {
@@ -59,10 +66,10 @@ public class MainService {
         return updatedUser;
     }
 
-    User getUserById(Long id) {
-        Optional<User> userOptional = userRepository.findById(id);
+    AppUser getUserById(Long id) {
+        Optional<AppUser> userOptional = userRepository.findById(id);
         if (userOptional.isPresent()) {
-            User user = userOptional.get();
+            AppUser user = userOptional.get();
             return user;
         } else {
             throw new EntityNotFoundException("User with id " + id + " not found");
@@ -70,9 +77,9 @@ public class MainService {
     }
 
     BankAccount getAccountBankOfUserById(Long id) {
-        Optional<User> userOptional = userRepository.findById(id);
+        Optional<AppUser> userOptional = userRepository.findById(id);
         if (userOptional.isPresent()) {
-            User user = userOptional.get();
+            AppUser user = userOptional.get();
             return user.getBankAccount();
         } else {
             throw new EntityNotFoundException("User with id " + id + " has't bank account");
@@ -85,9 +92,9 @@ public class MainService {
 
     BankAccount createsBankAccountOfUserById(Long id, BankAccount bankAccount) {
         BankAccount bankAccount2 = createsBankAccount(bankAccount);
-        Optional<User> userOptional = userRepository.findById(id);
+        Optional<AppUser> userOptional = userRepository.findById(id);
         if (userOptional.isPresent()) {
-            User newUser = userOptional.get();
+            AppUser newUser = userOptional.get();
             newUser.setBankAccount(bankAccount2);
             replaceUser(newUser, id);
             return newUser.getBankAccount();
@@ -112,9 +119,9 @@ public class MainService {
 
     BankAccount updateBankAccountOfUserById(Long id, BankAccount account) {
         BankAccount account2 = updateBankAccount(id, account);
-        Optional<User> userOptional = userRepository.findById(id);
+        Optional<AppUser> userOptional = userRepository.findById(id);
         if (userOptional.isPresent()) {
-            User user = userOptional.get();
+            AppUser user = userOptional.get();
             user.setBankAccount(account2);
             replaceUser(user, id);
             return account;
@@ -124,9 +131,9 @@ public class MainService {
     }
 
     void deleteUserAccountBank(Long id) {
-        Optional<User> userOptional = userRepository.findById(id);
+        Optional<AppUser> userOptional = userRepository.findById(id);
         if (userOptional.isPresent()) {
-            User user = userOptional.get();
+            AppUser user = userOptional.get();
             user.setBankAccount(null);
             replaceUser(user, id);
         } else {

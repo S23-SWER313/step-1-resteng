@@ -2,9 +2,12 @@ package com.resteng.resteng.classes.supplier;
 
 import java.net.URI;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,15 +19,18 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.resteng.resteng.classes.bankAccount.BankAccount;
-
-import jakarta.validation.Valid;
+import com.resteng.resteng.classes.mainUser.MainUser;
+import com.resteng.resteng.classes.mainUser.MainUserServece;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/api/v1/suppliers")
 public class SupplierController {
 
     @Autowired
     SupplierService service;
+    @Autowired
+    MainUserServece mainUserServece;
 
     @GetMapping(value = { "", "/" })
     public ResponseEntity<Iterable<Supplier>> getAllSuppliers() {
@@ -32,8 +38,10 @@ public class SupplierController {
         return new ResponseEntity<>(sups, HttpStatus.OK);
     }
 
-    @PostMapping(value = { "", "/" })
-    public ResponseEntity<Supplier> CreateNewSupplier(@Valid @RequestBody Supplier supplier) {
+    @PostMapping(value = { "{mainUserId}", "/{mainUserId}" })
+    public ResponseEntity<Supplier> CreateNewSupplier(@Valid @RequestBody Supplier supplier, @PathVariable long mainUserId) {
+        MainUser mainUser = mainUserServece.getUserById(mainUserId);
+        supplier.setMainUser(mainUser);
         Supplier supplier2 = service.newSupplier(supplier);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(supplier2.getSupplier_id())
