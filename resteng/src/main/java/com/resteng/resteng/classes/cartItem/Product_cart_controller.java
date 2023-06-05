@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -22,9 +23,10 @@ public class Product_cart_controller {
     @Autowired
     private Product_cart_service product_cart_service;
 
-    @PostMapping(value = { "carts/{cartId}/products/{productId}", "/carts/{cartId}/products/{productId}" })
-    public ResponseEntity<CartItem> CreateNewCartItem(@PathVariable Long cartId, @PathVariable Long productId) {
-        CartItem CartItem2 = product_cart_service.newCartItem(cartId, productId);
+    @PostMapping(value = { "", "/" })
+    public ResponseEntity<CartItem> CreateNewCartItem(@RequestBody CartItemDto cartItem) {
+        CartItem CartItem2 = product_cart_service.newCartItem(cartItem.getCart__id(),
+                cartItem.getProduct_id(), cartItem.getQuantity());
 
         if (CartItem2 != null) {
             URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")

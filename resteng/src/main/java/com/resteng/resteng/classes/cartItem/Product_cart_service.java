@@ -24,13 +24,15 @@ public class Product_cart_service {
         return catrItemRepo.findAll();
     }
 
-    CartItem newCartItem(Long cartId, Long productId) {
+    CartItem newCartItem(Long cartId, Long productId, long quantity) {
 
+        System.out.println(cartId);
         if (productRepo.findById(productId).isPresent()) {
             Product product = productRepo.findById(productId).get();
             if (cartRepo.findById(cartId).isPresent()) {
                 Cart cart = cartRepo.findById(cartId).get();
-                CartItem CartItem = new CartItem(product, cart);
+                System.out.println(cart.getId());
+                CartItem CartItem = new CartItem(quantity, product, cart);
                 CartItem newCartItem = catrItemRepo.save(CartItem);
                 return newCartItem;
             }
@@ -48,7 +50,9 @@ public class Product_cart_service {
         CartItem cartItem = catrItemRepo.findAll().stream()
                 .filter(e -> e.getCart().getId() == cartId && e.getProduct().getProduct_id() == productId).findFirst()
                 .get();
-        catrItemRepo.delete(cartItem);
+
+        catrItemRepo.deleteById(cartItem.getCart_item_id());
+
         return cartItem;
     }
 

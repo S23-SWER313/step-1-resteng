@@ -29,7 +29,7 @@ public class SupplierService {
     public Supplier newSupplier(Supplier supplier) {
         // MainUser mainUser = supplier.getMainUser();
         // if (mainUser != null)
-        //     mainUserRepo.save(mainUser);
+        // mainUserRepo.save(mainUser);
         Supplier newSupplier = supplierRepository.save(supplier);
         return newSupplier;
     }
@@ -55,7 +55,7 @@ public class SupplierService {
         return updatedSupplier;
     }
 
-    Supplier getSupplierById(Long id) {
+    public Supplier getSupplierById(Long id) {
         Optional<Supplier> supplierOptional = supplierRepository.findById(id);
         if (supplierOptional.isPresent()) {
             Supplier Supplier = supplierOptional.get();

@@ -1,9 +1,12 @@
 package com.resteng.resteng.classes.mainUser;
 
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import org.apache.el.stream.Stream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +18,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import com.resteng.resteng.classes.supplier.Supplier;
+import com.resteng.resteng.classes.user.AppUser;
+import com.resteng.resteng.classes.user.UserRepository;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
@@ -45,8 +52,19 @@ public class MainUserController {
     }
 
     @GetMapping("roleId/{username}")
-    long getUserById(@PathVariable String username) {
+    long getUserRoleId(@PathVariable String username) {
         return service.getUserRoleId(username);
+    }
+
+    @GetMapping("name/{username}")
+    AppUser getUserByUserName(@PathVariable String username) {
+
+        return service.getMainUserByUserName(username);
+    }
+
+    @GetMapping("supplier/{username}")
+    Supplier getSuppByUserName(@PathVariable String username) {
+        return service.getSuppByUserName(username);
     }
 
 }

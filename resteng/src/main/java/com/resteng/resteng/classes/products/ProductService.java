@@ -8,11 +8,14 @@ import org.springframework.stereotype.Service;
 import com.resteng.resteng.classes.catProduct.Cat_productRepo;
 import com.resteng.resteng.classes.catProduct.Cat_prod;
 import com.resteng.resteng.classes.categorie.Categorie;
+import com.resteng.resteng.classes.supplier.Supplier;
+import com.resteng.resteng.classes.supplier.SupplierService;
 
 @Service
 public class ProductService {
     private ProductRepo productRepo;
     private Cat_productRepo cartProductRepo;
+    private SupplierService supplierService;
 
     public ProductService(ProductRepo productRepo, Cat_productRepo cartProductRepo) {
         this.productRepo = productRepo;
@@ -83,7 +86,7 @@ public class ProductService {
             catProd.setCategorie(categorie);
             cartProductRepo.save(catProd);
             return categorie;
-        }else{
+        } else {
             return null;
         }
     }
@@ -98,7 +101,7 @@ public class ProductService {
             catProd.setCategorie(categorie);
             cartProductRepo.save(catProd);
             return categorie;
-        }else{
+        } else {
             return null;
         }
     }
@@ -109,5 +112,14 @@ public class ProductService {
                         && e.getProduct().getProduct_id() == productId)
                 .collect(Collectors.toList()).get(0);
         cartProductRepo.deleteById(catProds.getId());
+    }
+
+    public Supplier getSupplier(long id) {
+        return supplierService.getSupplierById(id);
+    }
+
+    public List<Product> getAllProductsForSupplier(long supplierId) {
+        return productRepo.findAll().stream().filter(e -> e.getSupplier().getSupplier_id() == supplierId)
+                .collect(Collectors.toList());
     }
 }

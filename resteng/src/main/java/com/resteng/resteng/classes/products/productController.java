@@ -12,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.resteng.resteng.classes.supplier.Supplier;
+
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/api/v1/products")
@@ -38,6 +40,12 @@ public class productController {
         }
     }
 
+    @GetMapping("supliers/{supplierId}")
+    public ResponseEntity<List<Product>> getAllProductsForSupplier(@PathVariable long supplierId) {
+        List<Product> products = productService.getAllProductsForSupplier(supplierId);
+        return new ResponseEntity<>(products, HttpStatus.OK);
+    }
+
     // PUT /products/{productId}
     @PutMapping("/{productId}")
     public ResponseEntity<Product> updateProduct(@PathVariable long productId, @Valid @RequestBody Product product) {
@@ -59,6 +67,8 @@ public class productController {
 
         Product product = new Product(product_title, product_price, product_description, product_img, product_quantity,
                 product_area, type);
+        Supplier supplier = productService.getSupplier(Integer.parseInt(supplier_supplier_id));
+        product.setSupplier(supplier);
 
         Product product2 = productService.addProduct(product);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{productId}")
