@@ -34,11 +34,11 @@ public class StartUpApp implements CommandLineRunner {
         }
 
         if (mainUserServece.getAllUser().isEmpty()) {// Assuming the Role constructor accepts a String parameter
-            MainUser user = new MainUser("password123", "john_doe", roleService.findRoleByName("costumer"));
-            MainUser user2 = new MainUser("123", "moh", roleService.findRoleByName("supplier"));
+            MainUser user = new MainUser("password123", "john_doe");
+            MainUser user2 = new MainUser("123", "moh");
 
-            mainUserServece.newUser(user);
-            mainUserServece.newUser(user2);
+            mainUserServece.newUser(user, "costumer");
+            mainUserServece.newUser(user2, "supplier");
         }
 
     }

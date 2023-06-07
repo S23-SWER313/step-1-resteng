@@ -38,8 +38,9 @@ public class MainUserController {
     }
 
     @PostMapping(value = { "", "/" })
-    public ResponseEntity<MainUser> CreateNewUser(@Valid @RequestBody MainUser user) {
-        MainUser user2 = service.newUser(user);
+    public ResponseEntity<MainUser> CreateNewUser(@Valid @RequestBody MainUserDto mainUserDto) {
+        MainUser user = new MainUser(mainUserDto.getUser_password(), mainUserDto.getUsername());
+        MainUser user2 = service.newUser(user, mainUserDto.getRole());
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(user2.getId())
                 .toUri();
@@ -58,7 +59,6 @@ public class MainUserController {
 
     @GetMapping("name/{username}")
     AppUser getUserByUserName(@PathVariable String username) {
-
         return service.getMainUserByUserName(username);
     }
 

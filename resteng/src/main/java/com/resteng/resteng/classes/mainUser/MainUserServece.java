@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.resteng.resteng.classes.entity.RoleRepo;
 import com.resteng.resteng.classes.security.MainUserDetails;
 import com.resteng.resteng.classes.supplier.Supplier;
 import com.resteng.resteng.classes.supplier.SupplierRepository;
@@ -31,6 +32,7 @@ public class MainUserServece implements UserDetailsService {
     PasswordEncoder passwordEncoder;
     UserRepository userRepository;
     SupplierRepository supplierRepository;
+    RoleRepo roleRepo;
 
     public List<MainUser> getAllUser() {
         return mainUserRepo.findAll();
@@ -44,8 +46,9 @@ public class MainUserServece implements UserDetailsService {
         return mainUserRepo.findUserByUsername(username).orElse(null);
     }
 
-    public MainUser newUser(MainUser user) {
+    public MainUser newUser(MainUser user, String role) {
         user.setUser_password(passwordEncoder.encode(user.getUser_password()));
+        user.setRole(roleRepo.findByName(role));
         MainUser newUser = mainUserRepo.save(user);
         return newUser;
     }

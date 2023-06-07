@@ -34,16 +34,14 @@ public class AuthController {
 
     @PostMapping("/refresh-token")
     public ResponseEntity<AccessTokenDto> refreshAccessToken(@RequestParam String refreshToken) {
-
         AccessTokenDto dto = authService.refreshAccessToken(refreshToken);
-
         return ResponseEntity.ok(dto);
     }
 
     @PostMapping("/logout")
     public ResponseEntity<?> logout(@RequestBody String refreshToken) {
         authService.logoutUser(refreshToken);
-        return ResponseEntity.ok(null);
+        return ResponseEntity.ok("Signed out");
     }
 
     @PostMapping("/signup")

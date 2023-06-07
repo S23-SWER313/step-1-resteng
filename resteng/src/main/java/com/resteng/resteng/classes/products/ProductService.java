@@ -11,16 +11,14 @@ import com.resteng.resteng.classes.categorie.Categorie;
 import com.resteng.resteng.classes.supplier.Supplier;
 import com.resteng.resteng.classes.supplier.SupplierService;
 
+import lombok.AllArgsConstructor;
+
 @Service
+@AllArgsConstructor
 public class ProductService {
     private ProductRepo productRepo;
     private Cat_productRepo cartProductRepo;
     private SupplierService supplierService;
-
-    public ProductService(ProductRepo productRepo, Cat_productRepo cartProductRepo) {
-        this.productRepo = productRepo;
-        this.cartProductRepo = cartProductRepo;
-    }
 
     public List<Product> getAllProducts() {
         return productRepo.findAll();

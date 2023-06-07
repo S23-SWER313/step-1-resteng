@@ -27,13 +27,9 @@ public class MainUser {
     private Long id;
 
     @Column(name = "main_user_password")
-    @NotNull
-    @NotBlank
     private String user_password;
 
     @Column(name = "main_user_username", unique = true)
-    @NotNull
-    @NotBlank
     private String username;
 
     @OneToOne
@@ -50,10 +46,9 @@ public class MainUser {
     public MainUser() {
     }
 
-    public MainUser(@NotNull @NotBlank String user_password, @NotNull @NotBlank String username, Role role) {
+    public MainUser(@NotNull @NotBlank String user_password, @NotNull @NotBlank String username) {
         this.user_password = user_password;
         this.username = username;
-        this.role = role;
     }
 
     public MainUser(Long id) {

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 // import org.springframework.http.HttpRequest;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -119,20 +120,32 @@ public class AuthService {
     }
 
     public ResponseEntity<MessageResponse> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
-        if (mainUserRepo.findUserByUsername(signUpRequest.getUsername()) == null) {
+        try {
+            if (mainUserRepo.findUserByUsername(signUpRequest.getUsername()) != null) {
+                return ResponseEntity
+                        .badRequest()
+                        .body(new MessageResponse("Error: Username is already taken!"));
+            }
+    
+            // Create new user's account
+            MainUser user = new MainUser(signUpRequest.getPassword(),
+                    signUpRequest.getUsername());
+    
+            MainUser savedUser = mainUserServece.newUser(user,signUpRequest.getRole());
+            if (savedUser == null) {
+                return ResponseEntity
+                        .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                        .body(new MessageResponse("Error: Failed to save user."));
+            }
+    
+            mainUserRepo.save(savedUser);
+    
+            return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+        } catch (Exception e) {
             return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("Error: Username is already taken!"));
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new MessageResponse("Error: An unexpected error occurred."));
         }
-
-        // Create new user's account
-        MainUser user = new MainUser(signUpRequest.getPassword(),
-                signUpRequest.getUsername(), roleRepo.findByName(signUpRequest.getRole()));
-
-        MainUser user2 = mainUserServece.newUser(user);
-
-        mainUserRepo.save(user2);
-
-        return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
+
 }

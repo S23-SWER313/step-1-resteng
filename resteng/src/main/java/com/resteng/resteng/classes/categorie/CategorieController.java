@@ -44,16 +44,6 @@ public class CategorieController {
         return ResponseEntity.created(location).build();
     }
 
-    @PutMapping("/{categorieId}")
-    public ResponseEntity<Categorie> updateCategory(@PathVariable String categorieId,@Valid @RequestBody Categorie updatedCategorie) {
-        Categorie categorie = categorieService.updateCategory(categorieId, updatedCategorie);
-        if (categorie != null) {
-            return new ResponseEntity<>(categorie, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
-
     @DeleteMapping("/{categorieId}")
     public ResponseEntity<HttpStatus> deleteCategory(@PathVariable String categorieId) {
         categorieService.deleteCategory(categorieId);
